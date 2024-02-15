@@ -1,0 +1,73 @@
+extends layout
+
+block content
+    .text-center.mt-5
+        h1.display-1 Gift Leaderboards
+        .row.m-3
+            .col
+                h4.display-4 Nightly
+                .text-start
+                    h5 Overall stats
+                    table.table
+                        tbody
+                            tr
+                                th Credit card gifts
+                                td= nightly.cc.num || 0
+                            tr
+                                th Credit card dollars
+                                td $#{nightly.cc.amount.toLocaleString() || 0}
+                            tr
+                                th Pledge cards
+                                td= nightly.pledge.num || 0
+                            tr
+                                th Pledge card dollars 
+                                td $#{nightly.pledge.amount.toLocaleString() || 0}
+                    h5 Top callers
+                    table.table
+                        thead
+                            tr
+                                th(scope='col') #
+                                th(scope='col') Caller
+                                th(scope='col') Credit cards
+                                th(scope='col') Credit card $
+                        tbody
+                            each caller, idx in nightly.callers
+                                tr
+                                    td= idx + 1
+                                    td= caller.name
+                                    td= caller.num
+                                    td $#{caller.amount.toLocaleString()}
+
+            .col
+                h4.display-4 Weekly
+                .text-start
+                    h5 Overall stats
+                    table.table
+                        tbody
+                            tr
+                                th Credit card gifts
+                                td= weekly.cc.num || 0
+                            tr
+                                th Credit card dollars
+                                td $#{weekly.cc.amount.toLocaleString() || 0}
+                            tr
+                                th Pledge cards
+                                td= weekly.pledge.num || 0
+                            tr
+                                th Pledge card dollars 
+                                td $#{weekly.pledge.amount.toLocaleString() || 0}
+                    h5 Top callers
+                    table.table
+                        thead
+                            tr
+                                th(scope='col') #
+                                th(scope='col') Caller
+                                th(scope='col') Credit cards
+                                th(scope='col') Credit card $
+                        tbody
+                            each caller, idx in weekly.callers
+                                tr
+                                    td= idx + 1
+                                    td= caller.name
+                                    td= caller.num
+                                    td $#{caller.amount.toLocaleString()}

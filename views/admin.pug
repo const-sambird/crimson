@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    .text-center.mt-3
+        a(href='/') Back to leaderboard
+    .container.m-3
+        h1 Add a gift
+        form(action='/admin/gift', method='POST')
+            .mb-3
+                label(for='caller') Caller name
+                select(name='caller')#caller.form-select
+                    each c in callers
+                        option(value=c)= c
+            .mb-3
+                .form-check
+                    input(name='type', type='radio', value='cc')#type-cc.form-check-input
+                    label(for='type-cc').form-check-label Credit card gift
+                .form-check
+                    input(name='type', type='radio', value='pledge')#type-pledge.form-check-input
+                    label(for='type-pledge').form-check-label Pledge card
+            .mb-3
+                label(for='amount').form-label Amount
+                .input-group
+                    span.input-group-text $
+                    input(type='text', name='amount', placeholder='200')#amount.form-control
+            button(type='submit').btn.btn-primary Submit
+        h1 Latest gifts
+            table.table
+                thead
+                    tr
+                        th Caller
+                        th Method
+                        th Amount
+                        th Delete?
+                tbody
+                    each gift in gifts
+                        tr
+                            td= gift.caller
+                            td= gift.method === 'cc' ? 'Credit card' : 'Pledge card'
+                            td= gift.amount
+                            td #[a(href='/admin/delete/' + gift.id).btn.btn-danger ✖]
+        h1 Reset
+        a(href='#', onclick='confirm(this)')#reset-start.btn.btn-danger Clear all gifts
+    
+    script.
+        function confirm(obj) {
+            obj.innerHTML = '<a href="/admin/clear" id="reset-start" class="btn btn-danger">Click again to confirm deletion of ALL gifts (refresh to abort)</a>'
+            return false
+        }
+                
