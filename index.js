@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
     for (let gift of gifts) {
         if (gift.date < time.sunday().valueOf())
-            return // last week
+            continue // last week
         if (gift.date > time.today().valueOf()) {
             // today, add to nightly
             if (gift.method === 'cc') {
